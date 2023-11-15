@@ -38,8 +38,8 @@ public class SprintServiceImpl implements SprintService {
     }
 
     public List<SprintDto> getAllSprints() {
-        System.err.println("jcjcj");
-        System.err.println(sprintRepo.findAll());
+//        System.err.println("jcjcj");
+//        System.err.println(sprintRepo.findAll());
         return sprintRepo.findAll().stream().map(t -> modelCopy.entityToDto(t)).collect(Collectors.toList());
     }
 
