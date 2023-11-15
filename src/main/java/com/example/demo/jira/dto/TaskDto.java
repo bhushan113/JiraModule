@@ -1,5 +1,6 @@
 package com.example.demo.jira.dto;
 
+import com.example.demo.jira.entity.User;
 import com.example.demo.jira.enumeration.TaskStatus;
 import com.example.demo.jira.enumeration.TaskType;
 import lombok.AllArgsConstructor;
@@ -18,6 +19,7 @@ public class TaskDto implements Serializable {
     private String taskId;
     private String title;
     private TaskType type;//story,feature,Bugs
-    private TaskStatus status;
+    private TaskStatus taskStatus;
+    private User user;
     private List<String> subtasks;
 }
