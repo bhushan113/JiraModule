@@ -5,6 +5,7 @@ import com.example.demo.jira.dto.SprintDto;
 import com.example.demo.jira.entity.Sprint;
 import com.example.demo.jira.entity.Task;
 import com.example.demo.jira.exception.SprintNotFound;
+import com.example.demo.jira.exception.TaskNotFound;
 import com.example.demo.jira.repo.SprintRepo;
 import com.example.demo.jira.repo.TaskRepo;
 import com.example.demo.jira.util.ModelCopy;
@@ -44,19 +45,19 @@ public class SprintServiceImpl implements SprintService {
     }
 
     @Override
-    public SprintDto getSprintById(String sId) {
-        Sprint sprint = sprintRepo.findById(sId).get();
+    public SprintDto getSprintById(String sprintId) {
+        Sprint sprint = sprintRepo.findById(sprintId).get();
         return modelCopy.entityToDto(sprint);
     }
 
     @Override
-    public SprintDto addTToSprint(String sId, AddTToSprintDto addTToSprintDto) {
+    public SprintDto addTToSprint(String sprintId, AddTToSprintDto addTToSprintDto) {
         try {
 //            Sprint sprint = sprintRepo.findById(sId).get();
-            Sprint sprint = sprintRepo.findById(sId).orElseThrow(() -> new SprintNotFound("Sprint not found"+sId));
+            Sprint sprint = sprintRepo.findById(sprintId).orElseThrow(() -> new SprintNotFound("Sprint not found"+sprintId));
             String tasks = addTToSprintDto.getTasks();
 //        Task task = taskRepo.findById(tasks).get();
-            Task task = taskRepo.findById(tasks).orElseThrow(() -> new SprintNotFound("Task not found"+tasks));
+            Task task = taskRepo.findById(tasks).orElseThrow(() -> new TaskNotFound("Task not found"+tasks));
             if (sprint.getTaskIds() == null) {
                 sprint.setTaskIds(List.of(task.getTaskId()));
             } else {
@@ -71,12 +72,12 @@ public class SprintServiceImpl implements SprintService {
     }
 
     @Override
-    public SprintDto removeTFromSprint(String sId, AddTToSprintDto addTToSprintDto) {
+    public SprintDto removeTFromSprint(String sprintId, AddTToSprintDto addTToSprintDto) {
         try {
-            Sprint sprint = sprintRepo.findById(sId).orElseThrow(() -> new SprintNotFound("Sprint not found"+sId));
+            Sprint sprint = sprintRepo.findById(sprintId).orElseThrow(() -> new SprintNotFound("Sprint not found"+sprintId));
 //        Sprint sprint = sprintRepo.findById(sId).get();
             String tasks = addTToSprintDto.getTasks();
-            Task task = taskRepo.findById(tasks).orElseThrow(() -> new SprintNotFound("Task not found"+tasks));
+            Task task = taskRepo.findById(tasks).orElseThrow(() -> new TaskNotFound("Task not found"+tasks));
 //        Task task = taskRepo.findById(tasks).get();
             sprint.getTaskIds().remove(task);
             return modelCopy.entityToDto(sprint);
