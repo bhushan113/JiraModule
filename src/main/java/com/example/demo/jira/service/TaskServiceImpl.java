@@ -9,6 +9,7 @@ import com.example.demo.jira.entity.User;
 import com.example.demo.jira.enumeration.TaskStatus;
 import com.example.demo.jira.exception.SprintNotFound;
 import com.example.demo.jira.exception.TaskNotFound;
+import com.example.demo.jira.exception.UserNotFound;
 import com.example.demo.jira.repo.TaskRepo;
 import com.example.demo.jira.repo.UserRepo;
 import com.example.demo.jira.util.ModelCopy1;
@@ -39,18 +40,24 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public TaskDto addUToTask(String taskId, AddUToTaskDto addUToTaskDto) {
-        Task task = taskRepo.findById(taskId).get();
+        try{
+//        Task task = taskRepo.findById(taskId).get();
+        Task task = taskRepo.findById(taskId).orElseThrow(() -> new TaskNotFound("Task not found"+taskId));
         String user = addUToTaskDto.getUser();
-        User user1 = userRepo.findById(user).get();
+        User user1 = userRepo.findById(user).orElseThrow(() -> new UserNotFound("User not found"+user));
+//        User user1 = userRepo.findById(user).get();
         task.setUser(user1);
         return modelCopy1.entityToDto(task);
-
+        }catch (TaskNotFound e) {
+            e.printStackTrace();
+            return new TaskDto();
+        }
     }
 
     @Override
-    public TaskDto updateStatus(String tId, UpdateStatusDto updateStatusDto) {
+    public TaskDto updateStatus(String taskId, UpdateStatusDto updateStatusDto) {
         try {
-            Task task = taskRepo.findById(tId).orElseThrow(() -> new TaskNotFound("Task not found"+tId));
+            Task task = taskRepo.findById(taskId).orElseThrow(() -> new TaskNotFound("Task not found"+taskId));
             TaskStatus tStatus = updateStatusDto.getTaskStatus();
             task.setTaskStatus(tStatus);
             taskRepo.save(task);
@@ -77,9 +84,9 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public TaskDto getTaskById(String tId) {
+    public TaskDto getTaskById(String taskId) {
         try {
-            Task task = taskRepo.findById(tId).orElseThrow(() -> new TaskNotFound("Task not found"+tId));
+            Task task = taskRepo.findById(taskId).orElseThrow(() -> new TaskNotFound("Task not found"+taskId));
             return modelCopy1.entityToDto(task);
         } catch (TaskNotFound e) {
             e.printStackTrace();
