@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Document(collation="sprint")
+@Document(collection="sprint")
 
 public class Sprint {
     @Id
