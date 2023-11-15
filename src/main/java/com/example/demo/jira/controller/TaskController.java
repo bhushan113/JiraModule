@@ -19,9 +19,9 @@ public class TaskController {
     public TaskDto createTask(@RequestBody TaskDto taskDto){
         return taskService.createTask(taskDto);
     }
-    @PutMapping("/{tId}")
-    public TaskDto updateStatus(@PathVariable String tId, @RequestBody UpdateStatusDto updateStatusDto){
-        return taskService.updateStatus(tId,updateStatusDto);
+    @PutMapping("/{taskId}")
+    public TaskDto updateStatus(@PathVariable String taskId, @RequestBody UpdateStatusDto updateStatusDto){
+        return taskService.updateStatus(taskId,updateStatusDto);
     }
     @GetMapping("/{taskStatus}")
     public List<TaskDto> getTaskByStatus(@PathVariable TaskStatus taskStatus){
@@ -31,13 +31,13 @@ public class TaskController {
     public List<TaskDto> getDelayedTask(){
         return taskService.getDelayedTask();
     }
-    @GetMapping("/{tId}")
-    public TaskDto getTaskById(@PathVariable String tId){
-        return taskService.getTaskById(tId);
+    @GetMapping("/{taskId}")
+    public TaskDto getTaskById(@PathVariable String taskId){
+        return taskService.getTaskById(taskId);
     }
-    @PutMapping("/add/{tId}")
-    public TaskDto addUToTask(@PathVariable String tId, @RequestBody AddUToTaskDto addUToTaskDto){
-        return taskService.addUToTask(tId,addUToTaskDto);
+    @PutMapping("/add/{taskId}")
+    public TaskDto addUToTask(@PathVariable String taskId, @RequestBody AddUToTaskDto addUToTaskDto){
+        return taskService.addUToTask(taskId,addUToTaskDto);
     }
     @GetMapping("/")
     public List<TaskDto> getAllTasks() {

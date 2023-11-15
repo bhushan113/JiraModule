@@ -18,21 +18,21 @@ public class SprintController {
 //       System.err.println("hgvchg");
         return sprintService.createSprint(sprintDto);
     }
-    @GetMapping("/{sId}")
-    public SprintDto getSprintById(@PathVariable String sId){
+    @GetMapping("/{sprintId}")
+    public SprintDto getSprintById(@PathVariable String sprintId){
 //       System.err.println("bnc");
-        return sprintService.getSprintById(sId);
+        return sprintService.getSprintById(sprintId);
     }
-    @PutMapping("/add/{sId}")
-    public SprintDto addTToSprint(@PathVariable String sId,@RequestBody AddTToSprintDto addToSprintDto){
-        return sprintService.addTToSprint(sId, addToSprintDto);
+    @PutMapping("/add/{sprintId}")
+    public SprintDto addTToSprint(@PathVariable String sprintId,@RequestBody AddTToSprintDto addToSprintDto){
+        return sprintService.addTToSprint(sprintId, addToSprintDto);
     }
 
-    @PutMapping("/remove/{sId}")
-    public SprintDto removeTFromSprint(@PathVariable String sId, @RequestBody AddTToSprintDto addTToSprintDto){
-        return sprintService.removeTFromSprint(sId,addTToSprintDto);
+    @PutMapping("/remove/{sprintId}")
+    public SprintDto removeTFromSprint(@PathVariable String sprintId, @RequestBody AddTToSprintDto addTToSprintDto){
+        return sprintService.removeTFromSprint(sprintId,addTToSprintDto);
     }
-    @GetMapping("/")
+    @GetMapping
     public List<SprintDto> getAllSprints(){
         return sprintService.getAllSprints();
     }
