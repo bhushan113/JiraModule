@@ -75,11 +75,10 @@ public class SprintServiceImpl implements SprintService {
     public SprintDto removeTFromSprint(String sprintId, AddTToSprintDto addTToSprintDto) {
         try {
             Sprint sprint = sprintRepo.findById(sprintId).orElseThrow(() -> new SprintNotFound("Sprint not found"+sprintId));
-//        Sprint sprint = sprintRepo.findById(sId).get();
             String tasks = addTToSprintDto.getTasks();
             Task task = taskRepo.findById(tasks).orElseThrow(() -> new TaskNotFound("Task not found"+tasks));
-//        Task task = taskRepo.findById(tasks).get();
-            sprint.getTaskIds().remove(task);
+            sprint.getTaskIds().remove(task.getTaskId());
+            sprintRepo.save(sprint);
             return modelCopy.entityToDto(sprint);
         } catch (SprintNotFound e) {
             e.printStackTrace();
