@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 public class AddUToTaskDto {
 
-    private String user;
+    private String userId;
 
 }
