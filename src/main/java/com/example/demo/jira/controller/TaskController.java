@@ -23,7 +23,7 @@ public class TaskController {
     public TaskDto updateStatus(@PathVariable String taskId, @RequestBody UpdateStatusDto updateStatusDto){
         return taskService.updateStatus(taskId,updateStatusDto);
     }
-    @GetMapping("/{taskStatus}")
+    @GetMapping("/status/{taskStatus}")
     public List<TaskDto> getTaskByStatus(@PathVariable TaskStatus taskStatus){
         return taskService.getTaskByStatus(taskStatus);
     }

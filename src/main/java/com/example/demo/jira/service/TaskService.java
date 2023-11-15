@@ -14,7 +14,7 @@ public interface TaskService {
 
     List<TaskDto> getDelayedTask();
 
-    TaskDto getTaskById(String sId);
+    TaskDto getTaskById(String taskId);
 
     TaskDto addUToTask(String taskId, AddUToTaskDto addUserToTaskDto);
 

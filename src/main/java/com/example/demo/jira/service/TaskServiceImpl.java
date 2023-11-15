@@ -43,7 +43,7 @@ public class TaskServiceImpl implements TaskService {
         try{
 //        Task task = taskRepo.findById(taskId).get();
         Task task = taskRepo.findById(taskId).orElseThrow(() -> new TaskNotFound("Task not found"+taskId));
-        String user = addUToTaskDto.getUser();
+        String user = addUToTaskDto.getUserId();
         User user1 = userRepo.findById(user).orElseThrow(() -> new UserNotFound("User not found"+user));
 //        User user1 = userRepo.findById(user).get();
         task.setUser(user1);
